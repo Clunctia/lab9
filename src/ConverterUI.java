@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
+ 
 public class ConverterUI extends JFrame{
 
 	private JButton convertButton;
@@ -17,7 +19,10 @@ public class ConverterUI extends JFrame{
 	private JRadioButton radioButton2;
 	private ButtonGroup buttonGroup;
 
-
+	/*
+	 * Constractor ConverterUI set the title of this ui and start the app.
+	 * @param UnitConverter uc this param for initialize unitconverter.
+	 */
 	public ConverterUI ( UnitConverter uc ){
 		this.unitconverter = uc;
 
@@ -27,7 +32,9 @@ public class ConverterUI extends JFrame{
 
 	}
 
-
+	/*
+	 * initComponent create and add add button, actionListener, and GUI.
+	 */
 	private void initComponent(){
 		JPanel windows = new JPanel();
 		windows.setLayout(new BorderLayout());
@@ -90,12 +97,21 @@ public class ConverterUI extends JFrame{
 		this.pack();
 
 	}
-
+	
+	/*
+	 * Show the GUI.
+	 */
 	public void run(){
 		this.pack();
 		this.setVisible(true);
 	}
-
+	
+	/*
+	 * for Convert button this class is ActionListerer to action when click the Convert button.
+	 * It will convert from inputField1 to inputField2 or inputField2 to inputField1 depend on which radioButton is selected.
+	 * If left radioButton is selected it will convert from inputField1 to inputField2.
+	 * And if right radioButton is selected it will convert from inputField2 to inputField1 respectively.
+	 */
 	class ConvertButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent evt ){
 			String s = "";
@@ -104,8 +120,6 @@ public class ConverterUI extends JFrame{
 			} else if ( radioButton2.isSelected() ){
 				s = inputField2.getText().trim();
 			}
-
-			System.out.println("actionPerformed: input=" + s);
 			if( s.length() > 0 ){
 				try{
 					double value = Double.valueOf( s );
@@ -121,25 +135,33 @@ public class ConverterUI extends JFrame{
 					}
 
 				}catch (NumberFormatException e){
-					System.out.println("Please input number");
+					
 				}
 			}
 		}
 	}
-
+	
+	/*
+	 * When click on clear button both inputField will change to empty String.
+	 */
 	class ClearButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent evt ){
 			inputField1.setText("");
 			inputField2.setText("");
 		}
 	}
-
+	
+	/*
+	 * Action when which radioButton is selected.
+	 * If left button is selected inputField1 will editable but inputField2 will not editable.
+	 * And if right button is selected inputField2 will editable but inputField1 will not editable.
+	 */
 	class CheckRadioButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent evt ){
-			if(radioButton1.isSelected()){
+			if( radioButton1.isSelected() ){
 				inputField1.setEditable(true);
 				inputField2.setEditable(false);
-			} else if (radioButton2.isSelected()){
+			} else if ( radioButton2.isSelected() ){
 				inputField1.setEditable(false);
 				inputField2.setEditable(true);
 			}
